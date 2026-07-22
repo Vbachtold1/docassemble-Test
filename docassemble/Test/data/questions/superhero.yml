@@ -1,0 +1,76 @@
+metadata:
+  title: Office Superhero Quiz
+  short title: Superhero Quiz
+  comment: |
+    A lighthearted demo interview used to test the GitHub-to-docassemble
+    publishing pipeline. Not real legal content.
+---
+objects:
+  - user: Individual
+---
+question: |
+  Welcome, ${ user }!
+subquestion: |
+  Answer a few quick questions and we'll reveal your Office Superhero identity.
+continue button field: intro_screen
+---
+question: |
+  What's your name?
+fields:
+  - First name: user.name.first
+  - Last name: user.name.last
+---
+question: |
+  Pick your superpower.
+field: superpower
+choices:
+  - Never running out of coffee
+  - Finding the perfect GIF for every Slack message
+  - Reading minds (mostly during meetings)
+  - Turning invisible during long meetings
+---
+question: |
+  What's your weakness?
+field: weakness
+choices:
+  - Mondays
+  - Merge conflicts
+  - The snack drawer
+  - Reply-all emails
+---
+code: |
+  if superpower == "Never running out of coffee":
+    hero_name = "Captain Caffeine"
+  elif superpower == "Finding the perfect GIF for every Slack message":
+    hero_name = "The GIF-erator"
+  elif superpower == "Reading minds (mostly during meetings)":
+    hero_name = "Meeting Mentalist"
+  else:
+    hero_name = "The Invisible Colleague"
+---
+mandatory: True
+question: |
+  Your results are in!
+subquestion: |
+  ${ user }, you are officially **${ hero_name }**.
+
+  Documented weakness: ${ weakness }
+
+  Here is your certificate.
+attachment:
+  name: Superhero Certificate
+  filename: superhero_certificate
+  content: |
+    # Certificate of Superhero-ness
+
+    This certifies that **${ user }**
+
+    is officially recognized as
+
+    ## ${ hero_name }
+
+    Weakness on file: ${ weakness }
+
+    _Issued by the docassemble-Test package, ${ today() }_
+buttons:
+  - Exit: exit
